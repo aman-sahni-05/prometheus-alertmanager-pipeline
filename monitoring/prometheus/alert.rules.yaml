@@ -1,0 +1,12 @@
+groups:
+  - name: 'node app alerts'
+    rules:
+      - alert: 'HighErrorAlert'
+        expr: sum(rate(http_request_duration_seconds_count{code=~"4..|5.."}[1m])) > 0
+        for: 0s
+        labels:
+          severity: critical
+        annotations:
+          summary: 'High error rate detected'
+          description: 'node app emitting 400 & 500 errors'
+
